@@ -1,0 +1,194 @@
+[gd_scene format=3 uid="uid://c1h4kvb38ri77"]
+
+[ext_resource type="Script" uid="uid://5tj23pwrmn2l" path="res://Scripts/enemy/enemy_bomber.gd" id="1_ierwm"]
+[ext_resource type="Texture2D" uid="uid://dfke8gdcxr056" path="res://Assets/Characters/Enemy/Kamikaze/run_enemymaskfast_0000.png" id="2_ierwm"]
+[ext_resource type="Texture2D" uid="uid://ck3a62ow3vqem" path="res://Assets/Characters/Character Direction Indicator.png" id="2_ygkuw"]
+[ext_resource type="Texture2D" uid="uid://dlw3wbywajp7q" path="res://Assets/Characters/Enemy/Kamikaze/run_enemymaskfast_0001.png" id="3_sgrh6"]
+[ext_resource type="Texture2D" uid="uid://38q886xee5nq" path="res://Assets/Characters/Enemy/Kamikaze/run_enemymaskfast_0002.png" id="4_ygkuw"]
+[ext_resource type="Texture2D" uid="uid://b437s4bk6xjmf" path="res://Assets/Characters/Enemy/Kamikaze/run_enemymaskfast_0003.png" id="5_2jw2c"]
+[ext_resource type="Texture2D" uid="uid://cx31bu1yys4hq" path="res://Assets/Characters/Enemy/Kamikaze/run_enemymaskfast_0004.png" id="6_35vb8"]
+[ext_resource type="Texture2D" uid="uid://db3avocfih08c" path="res://Assets/Characters/Enemy/Kamikaze/run_enemymaskfast_0005.png" id="7_4anj4"]
+[ext_resource type="Script" uid="uid://dsvh5fndmo3p2" path="res://Scripts/player_animation.gd" id="8_0vucr"]
+[ext_resource type="Texture2D" uid="uid://gydhqpyae2nm" path="res://Assets/materials/textures/explosion_01_8x8.tga" id="10_ygkuw"]
+[ext_resource type="PackedScene" uid="uid://drxqtyjnmroyf" path="res://Scenes/UI/hp.tscn" id="11_2jw2c"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_po0sg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q5xtd"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 0.5882353)
+albedo_texture = ExtResource("2_ygkuw")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2jw2c"]
+material = SubResource("StandardMaterial3D_q5xtd")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qqxsh"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"left_attack",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ierwm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_sgrh6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ygkuw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_2jw2c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_35vb8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_4anj4")
+}],
+"loop": true,
+"name": &"left_run",
+"speed": 18.0
+}]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sgrh6"]
+radius = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ygkuw"]
+transparency = 1
+albedo_color = Color(0, 0, 1, 0.39215687)
+
+[sub_resource type="SphereMesh" id="SphereMesh_2jw2c"]
+material = SubResource("StandardMaterial3D_ygkuw")
+radius = 3.0
+height = 6.0
+
+[sub_resource type="Gradient" id="Gradient_2jw2c"]
+colors = PackedColorArray(0.34654802, 0.15808015, 0.33846256, 1, 0.35093236, 0.1966579, 0.17392758, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_52cqr"]
+gradient = SubResource("Gradient_2jw2c")
+
+[sub_resource type="Curve" id="Curve_35vb8"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.8632959, 0.0952276), -1.430169, -1.430169, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_easi2"]
+curve = SubResource("Curve_35vb8")
+
+[sub_resource type="Curve" id="Curve_4anj4"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(0.8239701, 0.2651348), -2.1132429, -2.1132429, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ac2qa"]
+curve = SubResource("Curve_4anj4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_il4np"]
+emission_shape = 1
+emission_sphere_radius = 0.5
+angle_min = 1.0728835e-05
+angle_max = 1.0728835e-05
+spread = 180.0
+initial_velocity_max = 2.0
+angular_velocity_min = -90.000015
+angular_velocity_max = 89.999985
+gravity = Vector3(0, 0.6, 0)
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_ac2qa")
+color_ramp = SubResource("GradientTexture1D_52cqr")
+emission_curve = SubResource("CurveTexture_easi2")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_62jmp"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("10_ygkuw")
+emission_enabled = true
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 5
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_0vucr"]
+material = SubResource("StandardMaterial3D_62jmp")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_35vb8"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Enemy_Kamikaze" type="CharacterBody3D" unique_id=1209517175 node_paths=PackedStringArray("anim_sprite", "nav_agent", "attack_area", "attack_timer", "explosion_vfx") groups=["enemy"]]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_ierwm")
+anim_sprite = NodePath("Visual/AnimatedSprite3D")
+nav_agent = NodePath("NavigationAgent3D")
+attack_area = NodePath("Visual/HitBox")
+attack_timer = NodePath("Attack_Timer")
+explosion_vfx = NodePath("Visual/explosion")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1551187214]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_po0sg")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2055366024]
+
+[node name="Attack_Timer" type="Timer" parent="." unique_id=703818321]
+wait_time = 0.6
+one_shot = true
+
+[node name="Visual" type="Node3D" parent="." unique_id=1582377689]
+
+[node name="Attack_Indicator" type="MeshInstance3D" parent="Visual" unique_id=1570917660]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.034139395, 0.1, 0)
+mesh = SubResource("PlaneMesh_2jw2c")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Visual" unique_id=740281088]
+transform = Transform3D(0.27, 0, 0, 0, 0.27, 0, 0, 0, 0.27, 0, 1.240864, 0)
+billboard = 2
+alpha_cut = 2
+sprite_frames = SubResource("SpriteFrames_qqxsh")
+animation = &"left_run"
+autoplay = "left_run"
+frame_progress = 0.99384916
+script = ExtResource("8_0vucr")
+
+[node name="HitBox" type="Area3D" parent="Visual" unique_id=1746338681]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Visual/HitBox" unique_id=276433695]
+shape = SubResource("SphereShape3D_sgrh6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual/HitBox" unique_id=2090487548]
+visible = false
+mesh = SubResource("SphereMesh_2jw2c")
+
+[node name="explosion" type="GPUParticles3D" parent="Visual" unique_id=1334491287]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 1.4, 0)
+visible = false
+emitting = false
+amount = 30
+one_shot = true
+explosiveness = 0.9
+fixed_fps = 24
+process_material = SubResource("ParticleProcessMaterial_il4np")
+draw_pass_1 = SubResource("QuadMesh_0vucr")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1152973972]
+size = Vector2i(152, 16)
+
+[node name="Hp" parent="SubViewport" unique_id=1010032533 instance=ExtResource("11_2jw2c")]
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=2002868236]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.344355, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_35vb8")
+
+[connection signal="timeout" from="Attack_Timer" to="." method="_on_attack_timer_timeout"]
+[connection signal="body_entered" from="Visual/HitBox" to="." method="_on_hit_box_body_entered"]

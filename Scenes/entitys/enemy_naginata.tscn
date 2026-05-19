@@ -1,0 +1,169 @@
+[gd_scene format=3 uid="uid://dl2b68yo63egg"]
+
+[ext_resource type="Script" uid="uid://c0q602aajo4de" path="res://Scripts/enemy/enemy.gd" id="1_m4x7e"]
+[ext_resource type="Texture2D" uid="uid://c6jaom768t2g5" path="res://Assets/Characters/Enemy/Naginata/run_enemy mask weapon_0000.png" id="2_3olpp"]
+[ext_resource type="Texture2D" uid="uid://bb81wgxaap1mr" path="res://Assets/Characters/Enemy/attack_enemy mask/attack_enemy mask_0002.png" id="2_57foh"]
+[ext_resource type="Texture2D" uid="uid://0cqef71phf1o" path="res://Assets/Characters/Player/Get_hurt.png" id="2_lv01m"]
+[ext_resource type="Texture2D" uid="uid://bknq2pychyrlw" path="res://Assets/Characters/Enemy/attack_enemy mask/attack_enemy mask_0003.png" id="3_55i7m"]
+[ext_resource type="Texture2D" uid="uid://cw40hy5q80cks" path="res://Assets/Characters/Enemy/Naginata/run_enemy mask weapon_0001.png" id="3_hb8dg"]
+[ext_resource type="Texture2D" uid="uid://baug5adjgyjfi" path="res://Assets/Characters/Enemy/Naginata/run_enemy mask weapon_0002.png" id="4_1ltmg"]
+[ext_resource type="Texture2D" uid="uid://bws7k7s7cwo7w" path="res://Assets/Characters/Enemy/attack_enemy mask/attack_enemy mask_0004.png" id="4_l3ee1"]
+[ext_resource type="Texture2D" uid="uid://do61fhgnlr0qo" path="res://Assets/Characters/Enemy/Naginata/run_enemy mask weapon_0003.png" id="5_57foh"]
+[ext_resource type="Texture2D" uid="uid://br8uhfbl8q71u" path="res://Assets/Characters/Enemy/Naginata/run_enemy mask weapon_0004.png" id="6_55i7m"]
+[ext_resource type="Texture2D" uid="uid://b1bva1oabqsfv" path="res://Assets/Characters/Enemy/Naginata/run_enemy mask weapon_0005.png" id="7_l3ee1"]
+[ext_resource type="Texture2D" uid="uid://84flsh8svj8q" path="res://Assets/Characters/Player/attack_effect/attack_effect_0003.png" id="12_udeqq"]
+[ext_resource type="Script" uid="uid://dsvh5fndmo3p2" path="res://Scripts/player_animation.gd" id="13_8cim4"]
+[ext_resource type="Texture2D" uid="uid://dc6ctr80kr32e" path="res://Assets/Characters/Player/attack_effect/attack_effect_0004.png" id="13_lv01m"]
+[ext_resource type="Texture2D" uid="uid://ck3a62ow3vqem" path="res://Assets/Characters/Character Direction Indicator.png" id="14_8mh5c"]
+[ext_resource type="PackedScene" uid="uid://drxqtyjnmroyf" path="res://Scenes/UI/hp.tscn" id="15_lv01m"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_po0sg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qqxsh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_lv01m")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_57foh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_55i7m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l3ee1")
+}],
+"loop": false,
+"name": &"left_attack",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3olpp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_hb8dg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_1ltmg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_57foh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_55i7m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_l3ee1")
+}],
+"loop": true,
+"name": &"left_run",
+"speed": 12.0
+}]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m4x7e"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8k6np"]
+animations = [{
+"frames": [],
+"loop": false,
+"name": &"_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_udeqq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_lv01m")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"attack",
+"speed": 12.0
+}]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_udeqq"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 0.5882353)
+albedo_texture = ExtResource("14_8mh5c")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gjwtw"]
+material = SubResource("StandardMaterial3D_udeqq")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_8mh5c"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Enemy_Naginata" type="CharacterBody3D" unique_id=1209517175 node_paths=PackedStringArray("anim_sprite", "as_vfx", "nav_agent", "attack_area", "attack_timer", "hp_label") groups=["enemy"]]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_m4x7e")
+anim_sprite = NodePath("Visual/AnimatedSprite3D")
+as_vfx = NodePath("Visual/Attack_vfx_animsprited3d")
+nav_agent = NodePath("NavigationAgent3D")
+attack_area = NodePath("Visual/HitBox")
+attack_timer = NodePath("Attack_Timer")
+hp_label = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1551187214]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_po0sg")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2055366024]
+
+[node name="Visual" type="Node3D" parent="." unique_id=1596681984]
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Visual" unique_id=740281088]
+transform = Transform3D(0.27, 0, 0, 0, 0.27, 0, 0, 0, 0.27, 0, 1.240864, 0)
+modulate = Color(0, 0, 0, 1)
+billboard = 2
+alpha_cut = 2
+sprite_frames = SubResource("SpriteFrames_qqxsh")
+animation = &"left_run"
+autoplay = "left_run"
+script = ExtResource("13_8cim4")
+
+[node name="HitBox" type="Area3D" parent="Visual" unique_id=1746338681]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Visual/HitBox" unique_id=276433695]
+shape = SubResource("BoxShape3D_m4x7e")
+
+[node name="Attack_vfx_animsprited3d" type="AnimatedSprite3D" parent="Visual" unique_id=1118985513]
+transform = Transform3D(-0.42132497, 0.2692309, -1.1768456e-08, 0, -2.1855694e-08, -0.5, -0.2692309, -0.42132497, 1.84167e-08, 0, 1, 0.64191484)
+modulate = Color(0.059921265, 0.7641338, 0.90234375, 1)
+alpha_cut = 2
+sprite_frames = SubResource("SpriteFrames_8k6np")
+animation = &"_idle"
+
+[node name="Attack_Indicator" type="MeshInstance3D" parent="Visual" unique_id=2040627887]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.034139395, 0.1, 0)
+mesh = SubResource("PlaneMesh_gjwtw")
+
+[node name="Attack_Timer" type="Timer" parent="." unique_id=703818321]
+one_shot = true
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1011308440]
+transparent_bg = true
+size = Vector2i(152, 16)
+
+[node name="Hp" parent="SubViewport" unique_id=1010032533 instance=ExtResource("15_lv01m")]
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=432152058]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2606196, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_8mh5c")
+
+[connection signal="body_entered" from="Visual/HitBox" to="." method="_on_hit_box_body_entered"]
+[connection signal="timeout" from="Attack_Timer" to="." method="_on_attack_timer_timeout"]

@@ -1,0 +1,137 @@
+[gd_scene format=3 uid="uid://chxx0fnowo4ok"]
+
+[ext_resource type="Texture2D" uid="uid://gydhqpyae2nm" path="res://Assets/materials/textures/explosion_01_8x8.tga" id="1_oesgv"]
+
+[sub_resource type="Gradient" id="Gradient_6cfhi"]
+colors = PackedColorArray(0.34654802, 0.15808015, 0.33846256, 1, 0.35093236, 0.1966579, 0.17392758, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_oesgv"]
+gradient = SubResource("Gradient_6cfhi")
+
+[sub_resource type="Curve" id="Curve_vii7k"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.8632959, 0.0952276), -1.430169, -1.430169, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_t487a"]
+curve = SubResource("Curve_vii7k")
+
+[sub_resource type="Curve" id="Curve_fhi8l"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(0.8239701, 0.2651348), -2.1132429, -2.1132429, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_2ut6m"]
+curve = SubResource("Curve_fhi8l")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_iuqsl"]
+emission_shape = 1
+emission_sphere_radius = 0.5
+angle_min = 1.0728835e-05
+angle_max = 1.0728835e-05
+spread = 180.0
+initial_velocity_max = 2.0
+angular_velocity_min = -90.000015
+angular_velocity_max = 89.999985
+gravity = Vector3(0, 0.6, 0)
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_2ut6m")
+color_ramp = SubResource("GradientTexture1D_oesgv")
+emission_curve = SubResource("CurveTexture_t487a")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6cfhi"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_oesgv")
+emission_enabled = true
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 5
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_5f524"]
+material = SubResource("StandardMaterial3D_6cfhi")
+
+[sub_resource type="Animation" id="Animation_oesgv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("explosion:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("explosion/OmniLight3D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_t487a"]
+resource_name = "explode"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("explosion:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("explosion/OmniLight3D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ut6m"]
+_data = {
+&"RESET": SubResource("Animation_oesgv"),
+&"explode": SubResource("Animation_t487a")
+}
+
+[node name="Explosion" type="Node3D" unique_id=1774454554]
+
+[node name="explosion" type="GPUParticles3D" parent="." unique_id=1995927181]
+emitting = false
+amount = 30
+one_shot = true
+explosiveness = 0.9
+fixed_fps = 24
+process_material = SubResource("ParticleProcessMaterial_iuqsl")
+draw_pass_1 = SubResource("QuadMesh_5f524")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="explosion" unique_id=2074084325]
+visible = false
+light_color = Color(0.87266916, 0.19146542, 0.710672, 1)
+light_volumetric_fog_energy = 1.364
+light_size = 0.341
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1694280552]
+libraries/ = SubResource("AnimationLibrary_2ut6m")
+autoplay = &"explode"

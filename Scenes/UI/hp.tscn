@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://drxqtyjnmroyf"]
+
+[ext_resource type="Script" uid="uid://dibdk2cfess5c" path="res://Scenes/UI/hp.gd" id="1_aeiqu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4cml8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bfgr1"]
+bg_color = Color(0.6197916, 0.19045681, 0.39841586, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0.8235294, 0.45882353, 0.8392157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pynbi"]
+bg_color = Color(0.1024991, 0.04708522, 0.13802081, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wsor1"]
+bg_color = Color(0.8235294, 0.45882353, 0.8392157, 1)
+
+[node name="Hp" type="ProgressBar" unique_id=1010032533]
+z_index = 1
+offset_right = 150.0
+offset_bottom = 10.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_4cml8")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bfgr1")
+value = 80.0
+show_percentage = false
+script = ExtResource("1_aeiqu")
+
+[node name="damage" type="ProgressBar" parent="." unique_id=559812251]
+z_index = -1
+layout_mode = 0
+offset_right = 150.0
+offset_bottom = 10.0
+theme_override_styles/background = SubResource("StyleBoxFlat_pynbi")
+theme_override_styles/fill = SubResource("StyleBoxFlat_wsor1")
+value = 90.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="." unique_id=1601626028]
+wait_time = 0.4
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

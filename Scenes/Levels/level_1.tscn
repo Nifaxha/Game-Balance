@@ -1,0 +1,159 @@
+[gd_scene format=3 uid="uid://i6wvy4uy20xs"]
+
+[ext_resource type="Texture2D" uid="uid://bdfqfefgp0ji2" path="res://Assets/sky/kloppenheim_06_puresky_4k.exr" id="1_6444e"]
+[ext_resource type="Script" uid="uid://y1882vi87r3o" path="res://Scripts/main.gd" id="1_jv26f"]
+[ext_resource type="PackedScene" uid="uid://c1g1j207vhqu2" path="res://Scenes/Environment/stage_1.tscn" id="2_cyadu"]
+[ext_resource type="PackedScene" uid="uid://cqr1yrv2f1ci1" path="res://Scenes/entitys/player.tscn" id="3_lsmp6"]
+[ext_resource type="Script" uid="uid://b7lkvv0dr3kmw" path="res://Scripts/systems/spawn_entry.gd" id="4_hwvp3"]
+[ext_resource type="PackedScene" uid="uid://dl2b68yo63egg" path="res://Scenes/entitys/enemy_naginata.tscn" id="4_xrdnt"]
+[ext_resource type="Script" uid="uid://v35qky2v7ti" path="res://Scripts/systems/wave_settings.gd" id="5_afv7b"]
+[ext_resource type="PackedScene" uid="uid://t2716cm787xf" path="res://Scenes/mask.tscn" id="5_xgxfi"]
+[ext_resource type="Script" uid="uid://dqrlpjemhsup6" path="res://Scripts/systems/wave_spawner.gd" id="9_rb0md"]
+[ext_resource type="PackedScene" uid="uid://g50ytyl3in5w" path="res://Scenes/Levels/level_2.tscn" id="10_hwvp3"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_21xkr"]
+panorama = ExtResource("1_6444e")
+energy_multiplier = 0.5
+
+[sub_resource type="Sky" id="Sky_6bp64"]
+sky_material = SubResource("PanoramaSkyMaterial_21xkr")
+
+[sub_resource type="Environment" id="Environment_344ge"]
+background_mode = 2
+sky = SubResource("Sky_6bp64")
+tonemap_mode = 2
+
+[sub_resource type="Resource" id="Resource_u5ghp"]
+script = ExtResource("4_hwvp3")
+enemy_prefab = ExtResource("4_xrdnt")
+count = 2
+metadata/_custom_type_script = "uid://b7lkvv0dr3kmw"
+
+[sub_resource type="Resource" id="Resource_afv7b"]
+script = ExtResource("5_afv7b")
+enemy_list = Array[ExtResource("4_hwvp3")]([SubResource("Resource_u5ghp")])
+metadata/_custom_type_script = "uid://v35qky2v7ti"
+
+[sub_resource type="Resource" id="Resource_hwvp3"]
+script = ExtResource("4_hwvp3")
+enemy_prefab = ExtResource("4_xrdnt")
+count = 3
+metadata/_custom_type_script = "uid://b7lkvv0dr3kmw"
+
+[sub_resource type="Resource" id="Resource_7r2dd"]
+script = ExtResource("5_afv7b")
+enemy_list = Array[ExtResource("4_hwvp3")]([SubResource("Resource_hwvp3")])
+metadata/_custom_type_script = "uid://v35qky2v7ti"
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_jjvhh"]
+vertices = PackedVector3Array(-26.851017, 4.3149247, -17.946243, -26.851017, 4.0649247, -17.446243, -25.351017, 4.3149247, -16.446243, -11.851017, 13.814924, -29.946243, -13.351017, 13.814924, -31.446243, -17.504864, 13.814924, -27.292397, -16.004864, 13.814924, -25.792397, -25.101017, 0.31492472, -15.196243, -26.101017, 0.31492472, -15.196243, -34.101017, 0.31492472, -7.1962433, 6.898983, 0.31492472, 34.053757, -10.601017, 0.31492472, -29.446243, -11.101017, 0.31492472, -29.446243, 7.398983, 0.31492472, 34.053757, 29.898983, 0.31492472, 11.553757, 29.898983, 0.31492472, 11.053757)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 5), PackedInt32Array(2, 5, 6), PackedInt32Array(6, 5, 4), PackedInt32Array(6, 4, 3), PackedInt32Array(8, 7, 9), PackedInt32Array(9, 7, 10), PackedInt32Array(7, 12, 11), PackedInt32Array(13, 10, 14), PackedInt32Array(14, 10, 15), PackedInt32Array(15, 10, 7), PackedInt32Array(15, 7, 11)]
+geometry_parsed_geometry_type = 1
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_cyadu"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tbgi4"]
+size = Vector2(100, 100)
+
+[sub_resource type="LabelSettings" id="LabelSettings_jyhfs"]
+font_size = 78
+
+[node name="Main" type="Node" unique_id=214141678 node_paths=PackedStringArray("waveSpawner", "mask")]
+script = ExtResource("1_jv26f")
+waveSpawner = NodePath("WaveSpawner")
+mask = NodePath("World/Entitys/Mask")
+
+[node name="Shader" type="Node3D" parent="." unique_id=218795377]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Shader" unique_id=1877673272]
+transform = Transform3D(0.5276973, -0.7356303, 0.4247162, 2.9175732e-08, 0.49999997, 0.86602557, -0.8494326, -0.45699933, 0.26384872, 0, 7.8411636, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Shader" unique_id=640810124]
+environment = SubResource("Environment_344ge")
+
+[node name="WaveSpawner" type="Node3D" parent="." unique_id=276990733 node_paths=PackedStringArray("enemy_spawn_points")]
+script = ExtResource("9_rb0md")
+wave_patterns = Array[ExtResource("5_afv7b")]([SubResource("Resource_afv7b"), SubResource("Resource_7r2dd")])
+enemy_spawn_points = [NodePath("Marker3D"), NodePath("Marker3D2"), NodePath("Marker3D3"), NodePath("Marker3D4")]
+
+[node name="Marker3D" type="Marker3D" parent="WaveSpawner" unique_id=264095893]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.717854, 0, -21.285582)
+
+[node name="Marker3D2" type="Marker3D" parent="WaveSpawner" unique_id=1597110136]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.151516, 9.536743e-07, -7.8815823)
+
+[node name="Marker3D3" type="Marker3D" parent="WaveSpawner" unique_id=1077253290]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.523786, 9.536743e-07, 28.654839)
+
+[node name="Marker3D4" type="Marker3D" parent="WaveSpawner" unique_id=1136123706]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.78288, 9.536743e-07, 11.1113405)
+
+[node name="World" type="Node3D" parent="." unique_id=1696312715]
+
+[node name="Entitys" type="Node3D" parent="World" unique_id=1478491876]
+
+[node name="Player" parent="World/Entitys" unique_id=1129876813 instance=ExtResource("3_lsmp6")]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, -0.13085458, 0)
+
+[node name="Mask" parent="World/Entitys" unique_id=170680802 instance=ExtResource("5_xgxfi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8276649, 0, -1.0105587)
+visible = false
+sceneFile = ExtResource("10_hwvp3")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="World" unique_id=736129860]
+navigation_mesh = SubResource("NavigationMesh_jjvhh")
+
+[node name="Map" type="Node3D" parent="World/NavigationRegion3D" unique_id=1256688012]
+
+[node name="Stage1" parent="World/NavigationRegion3D/Map" unique_id=846485731 instance=ExtResource("2_cyadu")]
+transform = Transform3D(0.7071067, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, 0.7071067, 0, 0, 0)
+
+[node name="SideBorder" type="StaticBody3D" parent="World/NavigationRegion3D/Map/Stage1" unique_id=1138443529]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/NavigationRegion3D/Map/Stage1/SideBorder" unique_id=2012921845]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 13.498053, 6.0384917, 0)
+shape = SubResource("WorldBoundaryShape3D_cyadu")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="World/NavigationRegion3D/Map/Stage1/SideBorder" unique_id=396867410]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -19.617975, 6.0384903, 0)
+shape = SubResource("WorldBoundaryShape3D_cyadu")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="World/NavigationRegion3D/Map/Stage1/SideBorder" unique_id=1064520600]
+transform = Transform3D(1.9106855e-15, -4.371139e-08, 1, -1, -4.371139e-08, 0, 4.371139e-08, -1, -4.371139e-08, -3.5217278, 6.0384927, 29.644238)
+shape = SubResource("WorldBoundaryShape3D_cyadu")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="World/NavigationRegion3D/Map/Stage1/SideBorder" unique_id=1402688064]
+transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, -3.5217304, 6.0384903, -29.512564)
+shape = SubResource("WorldBoundaryShape3D_cyadu")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=272387040]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=749334792]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control" unique_id=859702898]
+visible = false
+layout_mode = 0
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 102.0
+offset_bottom = 80.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/HBoxContainer" unique_id=1359726872]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = SubResource("PlaceholderTexture2D_tbgi4")
+
+[node name="Seed_Label" type="Label" parent="CanvasLayer/Control/HBoxContainer" unique_id=1093438389]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "0"
+label_settings = SubResource("LabelSettings_jyhfs")

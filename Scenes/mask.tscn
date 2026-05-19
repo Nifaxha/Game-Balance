@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://t2716cm787xf"]
+
+[ext_resource type="Script" uid="uid://b3a76fcy25tkj" path="res://Scripts/mask.gd" id="1_nr6xi"]
+[ext_resource type="Texture2D" uid="uid://cd345ls8mc5e0" path="res://Assets/Items/Mask.png" id="2_daowh"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_m0bgt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lm7dy"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("2_daowh")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_i8ixn"]
+lightmap_size_hint = Vector2i(17, 17)
+material = SubResource("StandardMaterial3D_lm7dy")
+size = Vector2(3, 3)
+
+[sub_resource type="Animation" id="Animation_m0bgt"]
+resource_name = "Idle"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape3D/MeshInstance3D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.2, 0), Vector3(0, 0.2, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6mtvd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape3D/MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kq6mk"]
+_data = {
+&"Idle": SubResource("Animation_m0bgt"),
+&"RESET": SubResource("Animation_6mtvd")
+}
+
+[node name="Mask" type="StaticBody3D" unique_id=170680802]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_nr6xi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1259042480]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_m0bgt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D" unique_id=104494440]
+mesh = SubResource("QuadMesh_i8ixn")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="CollisionShape3D" unique_id=1292178603]
+light_color = Color(1, 0.8671875, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1113421418]
+libraries/ = SubResource("AnimationLibrary_kq6mk")
+autoplay = &"Idle"

@@ -1,0 +1,162 @@
+[gd_scene format=3 uid="uid://dhewmloyfvn4e"]
+
+[ext_resource type="Script" uid="uid://y1882vi87r3o" path="res://Scripts/main.gd" id="1_osqx1"]
+[ext_resource type="Texture2D" uid="uid://bdfqfefgp0ji2" path="res://Assets/sky/kloppenheim_06_puresky_4k.exr" id="2_sy7oa"]
+[ext_resource type="Script" uid="uid://dqrlpjemhsup6" path="res://Scripts/systems/wave_spawner.gd" id="3_md4x4"]
+[ext_resource type="Script" uid="uid://v35qky2v7ti" path="res://Scripts/systems/wave_settings.gd" id="4_1hf40"]
+[ext_resource type="Script" uid="uid://b7lkvv0dr3kmw" path="res://Scripts/systems/spawn_entry.gd" id="5_13yca"]
+[ext_resource type="PackedScene" uid="uid://dl2b68yo63egg" path="res://Scenes/entitys/enemy_naginata.tscn" id="6_8dmpc"]
+[ext_resource type="PackedScene" uid="uid://c1h4kvb38ri77" path="res://Scenes/entitys/enemy_kamikaze.tscn" id="7_anjjd"]
+[ext_resource type="PackedScene" uid="uid://cqr1yrv2f1ci1" path="res://Scenes/entitys/player.tscn" id="8_ocbj8"]
+[ext_resource type="PackedScene" uid="uid://t2716cm787xf" path="res://Scenes/mask.tscn" id="9_r8neg"]
+[ext_resource type="PackedScene" uid="uid://b8of3axtjqnli" path="res://Scenes/Levels/level_4.tscn" id="10_osqx1"]
+[ext_resource type="PackedScene" uid="uid://cbhhbgttf3h5e" path="res://Scenes/Environment/stage_3.tscn" id="11_osqx1"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_21xkr"]
+panorama = ExtResource("2_sy7oa")
+energy_multiplier = 0.5
+
+[sub_resource type="Sky" id="Sky_6bp64"]
+sky_material = SubResource("PanoramaSkyMaterial_21xkr")
+
+[sub_resource type="Environment" id="Environment_344ge"]
+background_mode = 2
+sky = SubResource("Sky_6bp64")
+tonemap_mode = 2
+
+[sub_resource type="Resource" id="Resource_osqx1"]
+script = ExtResource("5_13yca")
+enemy_prefab = ExtResource("7_anjjd")
+count = 2
+metadata/_custom_type_script = "uid://b7lkvv0dr3kmw"
+
+[sub_resource type="Resource" id="Resource_sy7oa"]
+script = ExtResource("5_13yca")
+enemy_prefab = ExtResource("6_8dmpc")
+count = 2
+metadata/_custom_type_script = "uid://b7lkvv0dr3kmw"
+
+[sub_resource type="Resource" id="Resource_md4x4"]
+script = ExtResource("4_1hf40")
+enemy_list = Array[ExtResource("5_13yca")]([SubResource("Resource_osqx1"), SubResource("Resource_sy7oa")])
+metadata/_custom_type_script = "uid://v35qky2v7ti"
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_jjvhh"]
+vertices = PackedVector3Array(-29.27005, 0.87218153, -3.5459633, -28.77005, 0.87218153, -3.5459633, -22.52005, 0.87218153, -10.045963, -14.27005, 0.87218153, -29.795963, -34.52005, 0.87218153, -50.045963, -55.02005, 0.87218153, -29.545963, -22.02005, 0.87218153, -10.045963, -14.77005, 0.87218153, -2.7959633, 4.97995, 0.87218153, -10.545963, -14.77005, 0.87218153, -2.2959633, -21.27005, 0.87218153, 3.9540367, -21.27005, 0.87218153, 4.4540367, 29.47995, 0.87218153, 54.954037, 49.97995, 0.87218153, 34.204037, -28.27005, 28.87218, -2.7959633, -22.27005, 28.87218, 3.4540367, -16.02005, 28.87218, -2.5459633, -22.02005, 28.87218, -8.795963, -27.77005, 0.87218153, -2.7959633, -22.27005, 0.87218153, 2.9540367, -16.52005, 0.87218153, -2.5459633, -22.02005, 0.87218153, -8.295963)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(4, 0, 5), PackedInt32Array(3, 6, 2), PackedInt32Array(6, 3, 7), PackedInt32Array(7, 3, 8), PackedInt32Array(10, 9, 11), PackedInt32Array(11, 9, 8), PackedInt32Array(11, 8, 13), PackedInt32Array(11, 13, 12), PackedInt32Array(9, 7, 8), PackedInt32Array(17, 16, 14), PackedInt32Array(14, 16, 15), PackedInt32Array(21, 20, 18), PackedInt32Array(18, 20, 19)]
+geometry_parsed_geometry_type = 1
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_cyadu"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tbgi4"]
+size = Vector2(100, 100)
+
+[sub_resource type="LabelSettings" id="LabelSettings_jyhfs"]
+font_size = 78
+
+[node name="Main" type="Node" unique_id=214141678 node_paths=PackedStringArray("waveSpawner", "mask")]
+script = ExtResource("1_osqx1")
+waveSpawner = NodePath("WaveSpawner")
+mask = NodePath("World/Entitys/Mask")
+
+[node name="Shader" type="Node3D" parent="." unique_id=218795377]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Shader" unique_id=1877673272]
+transform = Transform3D(0.5276973, -0.7356303, 0.4247162, 2.9175732e-08, 0.49999997, 0.86602557, -0.8494326, -0.45699933, 0.26384872, 0, 7.8411636, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Shader" unique_id=640810124]
+environment = SubResource("Environment_344ge")
+
+[node name="WaveSpawner" type="Node3D" parent="." unique_id=276990733 node_paths=PackedStringArray("enemy_spawn_points")]
+script = ExtResource("3_md4x4")
+wave_patterns = Array[ExtResource("4_1hf40")]([SubResource("Resource_md4x4")])
+enemy_spawn_points = [NodePath("Marker3D"), NodePath("Marker3D2"), NodePath("Marker3D4"), NodePath("Marker3D5"), NodePath("Marker3D6"), NodePath("Marker3D7")]
+
+[node name="Marker3D" type="Marker3D" parent="WaveSpawner" unique_id=264095893]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.088936, 0, 7.186454)
+
+[node name="Marker3D2" type="Marker3D" parent="WaveSpawner" unique_id=1597110136]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.64745, 9.536743e-07, -15.171791)
+
+[node name="Marker3D4" type="Marker3D" parent="WaveSpawner" unique_id=1136123706]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.067184, 4.7683716e-06, -37.13516)
+
+[node name="Marker3D5" type="Marker3D" parent="WaveSpawner" unique_id=1671038645]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -33.32305, 9.536743e-07, -43.133614)
+
+[node name="Marker3D6" type="Marker3D" parent="WaveSpawner" unique_id=1188951069]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.014954, 0.20139444, -25.506187)
+
+[node name="Marker3D7" type="Marker3D" parent="WaveSpawner" unique_id=527384601]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.829958, 0.8823626, -35.27281)
+
+[node name="World" type="Node3D" parent="." unique_id=1696312715]
+
+[node name="Entitys" type="Node3D" parent="World" unique_id=1478491876]
+
+[node name="Player" parent="World/Entitys" unique_id=1129876813 instance=ExtResource("8_ocbj8")]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 32.848034, 0.37398088, 37.423244)
+
+[node name="Mask" parent="World/Entitys" unique_id=170680802 instance=ExtResource("9_r8neg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.034237, 0, -36.488136)
+visible = false
+sceneFile = ExtResource("10_osqx1")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="World" unique_id=736129860]
+navigation_mesh = SubResource("NavigationMesh_jjvhh")
+
+[node name="Map" type="Node3D" parent="World/NavigationRegion3D" unique_id=1256688012]
+
+[node name="SideBorder" type="StaticBody3D" parent="World/NavigationRegion3D/Map" unique_id=1138443529]
+transform = Transform3D(0.7071067, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, 0.7071067, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/NavigationRegion3D/Map/SideBorder" unique_id=2012921845]
+transform = Transform3D(-4.3711395e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 11.39393, 6.0384917, -26.644953)
+shape = SubResource("WorldBoundaryShape3D_cyadu")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="World/NavigationRegion3D/Map/SideBorder" unique_id=396867410]
+transform = Transform3D(-4.3711395e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -18.51231, 6.0384903, 1.3768101)
+shape = SubResource("WorldBoundaryShape3D_cyadu")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="World/NavigationRegion3D/Map/SideBorder" unique_id=1064520600]
+transform = Transform3D(0, -8.940697e-08, 1, -1, -4.371139e-08, 0, 4.3711395e-08, -1, -8.940697e-08, 2.299055, 6.0384927, 60.01055)
+shape = SubResource("WorldBoundaryShape3D_cyadu")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="World/NavigationRegion3D/Map/SideBorder" unique_id=1402688064]
+transform = Transform3D(0, -8.940697e-08, -1, -1, -4.371139e-08, 0, -4.3711395e-08, 1, -8.940697e-08, 7.900652, 6.0384903, -59.97296)
+shape = SubResource("WorldBoundaryShape3D_cyadu")
+
+[node name="Stage3" parent="World/NavigationRegion3D/Map/SideBorder" unique_id=1686517878 instance=ExtResource("11_osqx1")]
+transform = Transform3D(-3, 0, -2.6226832e-07, 0, 3, 0, 2.6226832e-07, 0, -3, 0, 0, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=272387040]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=749334792]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control" unique_id=859702898]
+visible = false
+layout_mode = 0
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 102.0
+offset_bottom = 80.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/HBoxContainer" unique_id=1359726872]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = SubResource("PlaceholderTexture2D_tbgi4")
+
+[node name="Seed_Label" type="Label" parent="CanvasLayer/Control/HBoxContainer" unique_id=1093438389]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "0"
+label_settings = SubResource("LabelSettings_jyhfs")
