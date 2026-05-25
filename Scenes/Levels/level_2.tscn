@@ -7,10 +7,11 @@
 [ext_resource type="Script" uid="uid://b7lkvv0dr3kmw" path="res://Scripts/systems/spawn_entry.gd" id="5_13yca"]
 [ext_resource type="PackedScene" uid="uid://dl2b68yo63egg" path="res://Scenes/entitys/enemy_naginata.tscn" id="6_8dmpc"]
 [ext_resource type="PackedScene" uid="uid://c1h4kvb38ri77" path="res://Scenes/entitys/enemy_kamikaze.tscn" id="7_anjjd"]
+[ext_resource type="PackedScene" uid="uid://dal0614vb0gwp" path="res://Scenes/entitys/enemy_elit_naginata.tscn" id="8_0x4y1"]
 [ext_resource type="PackedScene" uid="uid://cqr1yrv2f1ci1" path="res://Scenes/entitys/player.tscn" id="8_ocbj8"]
-[ext_resource type="PackedScene" path="res://Scenes/mask.tscn" id="9_r8neg"]
-[ext_resource type="PackedScene" path="res://Scenes/Levels/level_3.tscn" id="10_u40f0"]
-[ext_resource type="PackedScene" path="res://Scenes/Environment/stage_2.tscn" id="11_341pv"]
+[ext_resource type="PackedScene" uid="uid://t2716cm787xf" path="res://Scenes/mask.tscn" id="9_r8neg"]
+[ext_resource type="PackedScene" uid="uid://dhewmloyfvn4e" path="res://Scenes/Levels/level_3.tscn" id="10_u40f0"]
+[ext_resource type="PackedScene" uid="uid://br5ayouw314gp" path="res://Scenes/Environment/stage_2.tscn" id="11_341pv"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_21xkr"]
 panorama = ExtResource("2_sy7oa")
@@ -46,6 +47,16 @@ script = ExtResource("4_1hf40")
 enemy_list = Array[ExtResource("5_13yca")]([SubResource("Resource_0x4y1")])
 metadata/_custom_type_script = "uid://v35qky2v7ti"
 
+[sub_resource type="Resource" id="Resource_eopvx"]
+script = ExtResource("5_13yca")
+enemy_prefab = ExtResource("8_0x4y1")
+metadata/_custom_type_script = "uid://b7lkvv0dr3kmw"
+
+[sub_resource type="Resource" id="Resource_t27xo"]
+script = ExtResource("4_1hf40")
+enemy_list = Array[ExtResource("5_13yca")]([SubResource("Resource_eopvx")])
+metadata/_custom_type_script = "uid://v35qky2v7ti"
+
 [sub_resource type="NavigationMesh" id="NavigationMesh_jjvhh"]
 vertices = PackedVector3Array(-1.9006653, 15.5, -40.90159, -0.40066528, 15.5, -38.40159, 0.09933472, 15.5, -38.40159, 12.599335, 15.5, -25.651588, 15.599335, 15.5, -28.401588, 15.599335, 15.5, -28.901588, 0.8493347, 15.5, -43.65159, -9.150665, 15.5, -33.90159, -9.150665, 15.5, -33.40159, -7.1506653, 15.5, -31.651588, -2.9006653, 0.75, -34.65159, -2.9006653, 0.75, -34.15159, -0.40066528, 0.75, -31.901588, 17.599335, 0.75, -19.401588, -0.40066528, 0.75, -37.15159, -21.400665, 0.75, -16.901588, -24.650665, 0.75, -13.651588, -24.650665, 0.75, -13.151588, -18.900665, 0.75, -7.6515884, -20.400665, 0.75, -16.901588, -6.1506653, 0.75, -25.901588, -8.900665, 0.75, -28.651588, -4.4006653, 0.75, -26.151588, -11.900665, 0.75, 3.3484116, -0.40066528, 0.75, -30.151588, -18.900665, 0.75, -6.6515884, -12.400665, 0.75, 3.3484116, -1.6506653, 3.5, -31.901588, -2.9006653, 3.5, -33.15159, -3.9006653, 3.5, -33.40159, -7.6506653, 3.5, -29.651588, -7.6506653, 3.5, -28.651588, -5.4006653, 3.5, -26.901588, -1.4006653, 3.5, -30.651588, -10.150665, 10.25, -32.90159, -15.900665, 10.25, -27.151588, -14.150665, 10.25, -25.151588, -13.650665, 10.25, -25.151588, -8.150665, 10.25, -30.651588, -8.150665, 10.25, -31.151588, -13.025665, 10.25, -30.026588, -13.983999, 9.25, -29.068256, -11.817331, 9.5, -26.984922, -10.900665, 10.25, -27.901588, -12.650604, 9.25, -27.671654, -3.9006653, 0.75, -32.65159, -7.1506653, 0.75, -29.401588, -5.6506653, 0.75, -27.651588, -5.1506653, 0.75, -27.651588, -1.9006653, 0.75, -30.901588, -3.4006653, 0.75, -32.65159, 20.599335, 5.25, -23.401588, 20.599335, 5.25, -23.901588, 18.099335, 5.25, -26.151588, 15.349335, 5.25, -23.401588, 17.599335, 5.25, -20.651588, -15.650665, 8.25, -23.401588, -14.900665, 8, -23.901588, -16.650665, 8, -25.901588, -17.400665, 8.25, -25.651588, -19.150665, 5.25, -23.901588, -22.900665, 5.25, -20.151588, -22.900665, 5.25, -19.651588, -20.900665, 5.25, -17.901588, -17.150665, 5.25, -21.651588, -17.150665, 5.25, -22.151588, 34.599335, 0.75, -2.1515884, 34.599335, 0.75, -2.6515884, -7.6506653, 0.75, 7.3484116, 16.349335, 0.75, 15.848412, -7.6506653, 0.75, 8.098412, -31.400665, 5, -6.9015884, -31.400665, 5, -6.4015884, -26.150665, 5, -1.1515884, -25.650665, 5, -1.1515884, -19.900665, 5, -6.9015884, -25.650665, 5, -12.651588, -30.900665, 0.75, -6.9015884, -30.900665, 0.75, -6.4015884, -26.150665, 0.75, -1.6515884, -25.650665, 0.75, -1.6515884, -20.400665, 0.75, -6.9015884, -25.650665, 0.75, -12.151588, -14.650665, 0.75, 5.3484116, -25.650665, 0.75, 0.09841156, -26.150665, 0.75, 0.09841156, -32.150665, 0.75, -5.9015884, -37.650665, 0.75, -0.65158844, -29.650665, 0.75, 7.3484116, -25.150665, 0.75, 11.848412, -16.650665, 0.75, 7.3484116, -16.650665, 0.75, 8.098412, -8.900665, 5.25, 8.098412, -11.900665, 5.25, 4.5984116, -15.400665, 5.25, 7.5984116, -15.400665, 5.25, 8.098412, -12.400665, 5.25, 11.098412, -11.900665, 5.25, 11.098412, -12.400665, 5.25, 4.5984116, -8.900665, 5.25, 7.5984116, -14.900665, 0.75, 7.5984116, -12.400665, 0.75, 10.598412, -9.400665, 0.75, 8.098412, -11.900665, 0.75, 5.0984116, -16.150665, 0.75, 20.848412, -12.400665, 0.75, 12.348412, -11.650665, 0.75, 12.348412, -2.6506653, 0.75, 34.59841, -2.1506653, 0.75, 34.59841)
 polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(4, 3, 5), PackedInt32Array(5, 3, 2), PackedInt32Array(5, 2, 0), PackedInt32Array(5, 0, 6), PackedInt32Array(8, 7, 9), PackedInt32Array(9, 7, 1), PackedInt32Array(1, 7, 0), PackedInt32Array(11, 10, 12), PackedInt32Array(12, 10, 14), PackedInt32Array(12, 14, 13), PackedInt32Array(16, 15, 17), PackedInt32Array(17, 15, 19), PackedInt32Array(17, 19, 18), PackedInt32Array(19, 21, 20), PackedInt32Array(20, 22, 19), PackedInt32Array(19, 22, 18), PackedInt32Array(18, 22, 23), PackedInt32Array(23, 22, 13), PackedInt32Array(24, 12, 13), PackedInt32Array(26, 25, 23), PackedInt32Array(23, 25, 18), PackedInt32Array(13, 22, 24), PackedInt32Array(29, 28, 27), PackedInt32Array(31, 30, 32), PackedInt32Array(32, 30, 33), PackedInt32Array(33, 30, 27), PackedInt32Array(27, 30, 29), PackedInt32Array(38, 34, 39), PackedInt32Array(34, 38, 40), PackedInt32Array(40, 44, 41), PackedInt32Array(41, 44, 35), PackedInt32Array(35, 44, 36), PackedInt32Array(36, 44, 37), PackedInt32Array(37, 44, 42), PackedInt32Array(42, 44, 43), PackedInt32Array(43, 40, 38), PackedInt32Array(40, 43, 44), PackedInt32Array(50, 49, 45), PackedInt32Array(45, 49, 48), PackedInt32Array(45, 48, 47), PackedInt32Array(45, 47, 46), PackedInt32Array(52, 51, 53), PackedInt32Array(53, 51, 54), PackedInt32Array(54, 51, 55), PackedInt32Array(57, 56, 58), PackedInt32Array(58, 56, 59), PackedInt32Array(65, 64, 60), PackedInt32Array(60, 64, 61), PackedInt32Array(61, 64, 62), PackedInt32Array(62, 64, 63), PackedInt32Array(67, 66, 13), PackedInt32Array(13, 66, 69), PackedInt32Array(13, 69, 68), PackedInt32Array(13, 68, 23), PackedInt32Array(69, 70, 68), PackedInt32Array(72, 71, 73), PackedInt32Array(73, 71, 74), PackedInt32Array(74, 71, 76), PackedInt32Array(74, 76, 75), PackedInt32Array(78, 77, 79), PackedInt32Array(79, 77, 80), PackedInt32Array(80, 77, 82), PackedInt32Array(80, 82, 81), PackedInt32Array(26, 83, 25), PackedInt32Array(25, 83, 84), PackedInt32Array(86, 85, 87), PackedInt32Array(87, 85, 88), PackedInt32Array(85, 84, 88), PackedInt32Array(88, 84, 89), PackedInt32Array(89, 84, 90), PackedInt32Array(90, 84, 83), PackedInt32Array(90, 91, 89), PackedInt32Array(97, 96, 92), PackedInt32Array(92, 96, 95), PackedInt32Array(92, 95, 94), PackedInt32Array(92, 94, 93), PackedInt32Array(94, 98, 93), PackedInt32Array(93, 99, 92), PackedInt32Array(103, 102, 100), PackedInt32Array(100, 102, 101), PackedInt32Array(91, 105, 89), PackedInt32Array(89, 105, 104), PackedInt32Array(104, 105, 106), PackedInt32Array(106, 70, 104), PackedInt32Array(104, 70, 107), PackedInt32Array(107, 70, 108), PackedInt32Array(108, 70, 69)]
@@ -78,7 +89,7 @@ environment = SubResource("Environment_344ge")
 
 [node name="WaveSpawner" type="Node3D" parent="." unique_id=276990733 node_paths=PackedStringArray("enemy_spawn_points")]
 script = ExtResource("3_md4x4")
-wave_patterns = Array[ExtResource("4_1hf40")]([SubResource("Resource_u40f0"), SubResource("Resource_uqiic")])
+wave_patterns = Array[ExtResource("4_1hf40")]([SubResource("Resource_u40f0"), SubResource("Resource_uqiic"), SubResource("Resource_t27xo")])
 enemy_spawn_points = [NodePath("Marker3D"), NodePath("Marker3D2"), NodePath("Marker3D3"), NodePath("Marker3D4"), NodePath("Marker3D5"), NodePath("Marker3D6"), NodePath("Marker3D7")]
 
 [node name="Marker3D" type="Marker3D" parent="WaveSpawner" unique_id=264095893]
@@ -115,6 +126,7 @@ visible = false
 sceneFile = ExtResource("10_u40f0")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="World" unique_id=736129860]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.036326647, -1.9073486e-06, 0.0059833527)
 navigation_mesh = SubResource("NavigationMesh_jjvhh")
 
 [node name="Map" type="Node3D" parent="World/NavigationRegion3D" unique_id=1256688012]
@@ -175,3 +187,24 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "0"
 label_settings = SubResource("LabelSettings_jyhfs")
+
+[node name="DashBar" type="ProgressBar" parent="CanvasLayer/Control" unique_id=386333081]
+layout_mode = 0
+offset_left = 228.95
+offset_top = 168.055
+offset_right = 448.95
+offset_bottom = 195.055
+scale = Vector2(1.58, 1.58)
+max_value = 3.0
+value = 3.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/DashBar" unique_id=1648739406]
+layout_mode = 0
+offset_left = 221.675
+offset_top = 2.145
+offset_right = 261.67523
+offset_bottom = 25.145
+text = "2/2"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -103,7 +103,7 @@ material = SubResource("StandardMaterial3D_udeqq")
 [sub_resource type="ViewportTexture" id="ViewportTexture_8mh5c"]
 viewport_path = NodePath("SubViewport")
 
-[node name="Enemy_Naginata" type="CharacterBody3D" unique_id=1209517175 node_paths=PackedStringArray("anim_sprite", "as_vfx", "nav_agent", "attack_area", "attack_timer", "hp_label") groups=["enemy"]]
+[node name="Enemy_Naginata2" type="CharacterBody3D" unique_id=1209517175 node_paths=PackedStringArray("anim_sprite", "as_vfx", "nav_agent", "attack_area", "attack_timer") groups=["enemy"]]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_m4x7e")
@@ -112,7 +112,6 @@ as_vfx = NodePath("Visual/Attack_vfx_animsprited3d")
 nav_agent = NodePath("NavigationAgent3D")
 attack_area = NodePath("Visual/HitBox")
 attack_timer = NodePath("Attack_Timer")
-hp_label = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1551187214]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -123,12 +122,12 @@ shape = SubResource("CapsuleShape3D_po0sg")
 [node name="Visual" type="Node3D" parent="." unique_id=1596681984]
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Visual" unique_id=740281088]
-transform = Transform3D(0.27, 0, 0, 0, 0.27, 0, 0, 0, 0.27, 0, 1.240864, 0)
+transform = Transform3D(0.31187552, 0, 0, 0, 0.31187552, 0, 0, 0, 0.27, 0, 1.240864, 0)
 modulate = Color(0, 0, 0, 1)
 billboard = 2
 alpha_cut = 2
 sprite_frames = SubResource("SpriteFrames_qqxsh")
-animation = &"left_run"
+animation = &"hurt"
 autoplay = "left_run"
 script = ExtResource("13_8cim4")
 

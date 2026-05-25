@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dl2b68yo63egg" path="res://Scenes/entitys/enemy_naginata.tscn" id="6_8dmpc"]
 [ext_resource type="PackedScene" uid="uid://c1h4kvb38ri77" path="res://Scenes/entitys/enemy_kamikaze.tscn" id="7_anjjd"]
 [ext_resource type="PackedScene" uid="uid://cqr1yrv2f1ci1" path="res://Scenes/entitys/player.tscn" id="8_ocbj8"]
+[ext_resource type="PackedScene" uid="uid://dal0614vb0gwp" path="res://Scenes/entitys/enemy_elit_naginata.tscn" id="8_sy7oa"]
 [ext_resource type="PackedScene" uid="uid://t2716cm787xf" path="res://Scenes/mask.tscn" id="9_r8neg"]
 [ext_resource type="PackedScene" uid="uid://b8of3axtjqnli" path="res://Scenes/Levels/level_4.tscn" id="10_osqx1"]
 [ext_resource type="PackedScene" uid="uid://cbhhbgttf3h5e" path="res://Scenes/Environment/stage_3.tscn" id="11_osqx1"]
@@ -41,6 +42,21 @@ script = ExtResource("4_1hf40")
 enemy_list = Array[ExtResource("5_13yca")]([SubResource("Resource_osqx1"), SubResource("Resource_sy7oa")])
 metadata/_custom_type_script = "uid://v35qky2v7ti"
 
+[sub_resource type="Resource" id="Resource_1hf40"]
+script = ExtResource("5_13yca")
+enemy_prefab = ExtResource("8_sy7oa")
+metadata/_custom_type_script = "uid://b7lkvv0dr3kmw"
+
+[sub_resource type="Resource" id="Resource_13yca"]
+script = ExtResource("5_13yca")
+enemy_prefab = ExtResource("8_sy7oa")
+metadata/_custom_type_script = "uid://b7lkvv0dr3kmw"
+
+[sub_resource type="Resource" id="Resource_8dmpc"]
+script = ExtResource("4_1hf40")
+enemy_list = Array[ExtResource("5_13yca")]([SubResource("Resource_1hf40"), SubResource("Resource_13yca")])
+metadata/_custom_type_script = "uid://v35qky2v7ti"
+
 [sub_resource type="NavigationMesh" id="NavigationMesh_jjvhh"]
 vertices = PackedVector3Array(-29.27005, 0.87218153, -3.5459633, -28.77005, 0.87218153, -3.5459633, -22.52005, 0.87218153, -10.045963, -14.27005, 0.87218153, -29.795963, -34.52005, 0.87218153, -50.045963, -55.02005, 0.87218153, -29.545963, -22.02005, 0.87218153, -10.045963, -14.77005, 0.87218153, -2.7959633, 4.97995, 0.87218153, -10.545963, -14.77005, 0.87218153, -2.2959633, -21.27005, 0.87218153, 3.9540367, -21.27005, 0.87218153, 4.4540367, 29.47995, 0.87218153, 54.954037, 49.97995, 0.87218153, 34.204037, -28.27005, 28.87218, -2.7959633, -22.27005, 28.87218, 3.4540367, -16.02005, 28.87218, -2.5459633, -22.02005, 28.87218, -8.795963, -27.77005, 0.87218153, -2.7959633, -22.27005, 0.87218153, 2.9540367, -16.52005, 0.87218153, -2.5459633, -22.02005, 0.87218153, -8.295963)
 polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(4, 0, 5), PackedInt32Array(3, 6, 2), PackedInt32Array(6, 3, 7), PackedInt32Array(7, 3, 8), PackedInt32Array(10, 9, 11), PackedInt32Array(11, 9, 8), PackedInt32Array(11, 8, 13), PackedInt32Array(11, 13, 12), PackedInt32Array(9, 7, 8), PackedInt32Array(17, 16, 14), PackedInt32Array(14, 16, 15), PackedInt32Array(21, 20, 18), PackedInt32Array(18, 20, 19)]
@@ -70,7 +86,7 @@ environment = SubResource("Environment_344ge")
 
 [node name="WaveSpawner" type="Node3D" parent="." unique_id=276990733 node_paths=PackedStringArray("enemy_spawn_points")]
 script = ExtResource("3_md4x4")
-wave_patterns = Array[ExtResource("4_1hf40")]([SubResource("Resource_md4x4")])
+wave_patterns = Array[ExtResource("4_1hf40")]([SubResource("Resource_md4x4"), SubResource("Resource_8dmpc")])
 enemy_spawn_points = [NodePath("Marker3D"), NodePath("Marker3D2"), NodePath("Marker3D4"), NodePath("Marker3D5"), NodePath("Marker3D6"), NodePath("Marker3D7")]
 
 [node name="Marker3D" type="Marker3D" parent="WaveSpawner" unique_id=264095893]
@@ -160,3 +176,24 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "0"
 label_settings = SubResource("LabelSettings_jyhfs")
+
+[node name="DashBar" type="ProgressBar" parent="CanvasLayer/Control" unique_id=751701381]
+layout_mode = 0
+offset_left = 228.95
+offset_top = 168.055
+offset_right = 448.95
+offset_bottom = 195.055
+scale = Vector2(1.58, 1.58)
+max_value = 3.0
+value = 3.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/DashBar" unique_id=1756365520]
+layout_mode = 0
+offset_left = 221.675
+offset_top = 2.145
+offset_right = 261.67523
+offset_bottom = 25.145
+text = "2/2"
+horizontal_alignment = 1
+vertical_alignment = 1

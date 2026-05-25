@@ -203,3 +203,24 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "0"
 label_settings = SubResource("LabelSettings_jyhfs")
+
+[node name="DashBar" type="ProgressBar" parent="CanvasLayer/Control" unique_id=1596082261]
+layout_mode = 0
+offset_left = 228.95
+offset_top = 168.055
+offset_right = 448.95
+offset_bottom = 195.055
+scale = Vector2(1.58, 1.58)
+max_value = 3.0
+value = 3.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/DashBar" unique_id=1747097980]
+layout_mode = 0
+offset_left = 221.675
+offset_top = 2.145
+offset_right = 261.67523
+offset_bottom = 25.145
+text = "2/2"
+horizontal_alignment = 1
+vertical_alignment = 1

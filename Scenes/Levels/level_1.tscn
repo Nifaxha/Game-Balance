@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://v35qky2v7ti" path="res://Scripts/systems/wave_settings.gd" id="5_afv7b"]
 [ext_resource type="PackedScene" uid="uid://t2716cm787xf" path="res://Scenes/mask.tscn" id="5_xgxfi"]
 [ext_resource type="Script" uid="uid://dqrlpjemhsup6" path="res://Scripts/systems/wave_spawner.gd" id="9_rb0md"]
-[ext_resource type="PackedScene" uid="uid://g50ytyl3in5w" path="res://Scenes/Levels/level_2.tscn" id="10_hwvp3"]
+[ext_resource type="PackedScene" uid="uid://ch58wori2nuxd" path="res://Scenes/Levels/level_2.tscn" id="10_hwvp3"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_21xkr"]
 panorama = ExtResource("1_6444e")
@@ -157,3 +157,25 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "0"
 label_settings = SubResource("LabelSettings_jyhfs")
+
+[node name="DashBar" type="ProgressBar" parent="CanvasLayer/Control" unique_id=1760907735]
+layout_mode = 0
+offset_left = 228.95
+offset_top = 168.055
+offset_right = 448.95
+offset_bottom = 195.055
+scale = Vector2(1.58, 1.58)
+max_value = 3.0
+value = 3.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/DashBar" unique_id=1709422512]
+layout_mode = 0
+offset_left = 221.675
+offset_top = 2.145
+offset_right = 261.67523
+offset_bottom = 25.145
+text = "2/2"
+horizontal_alignment = 1
+vertical_alignment = 1
+tab_stops = PackedFloat32Array(1, 1)

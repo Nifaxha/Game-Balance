@@ -15,13 +15,38 @@ extends CharacterBody3D
 @export var atk := 50
 @export var speed := 7.0
 
+@export_group("Sanity System")
+@export var max_sanity := 100
+@export var weapon_skill_cost := 35
+var sanity := 100
+var is_hollow := false # Status ketika sanity = 0
 @onready var healthbar = $CanvasLayer/Control/TexturedHp
+
+# Tambahkan baris ini (sesuaikan path-nya jika berbeda)
+var dash_bar: ProgressBar
+var dash_label: Label
+# @onready var dash_label = $CanvasLayer/Control/DashChargeLabel # (Hapus tanda # jika kamu pakai Label)
+# Naik ke Entitys (../) -> naik ke World (../../) -> turun ke CanvasLayer
 
 var hp := 0
 
 func _ready():
 	hp = max_hp
 	healthbar.init_health(hp)
+	
+	# Mencari node dari ujung atas Scene (World)
+	var scene_root = get_tree().current_scene
+	if scene_root:
+		dash_bar = scene_root.get_node_or_null("CanvasLayer/Control/DashBar")
+		dash_label = scene_root.get_node_or_null("CanvasLayer/Control/DashBar/Label")
+	
+	# Pengecekan
+	if dash_bar == null:
+		print("ERROR: DashBar MASIH TIDAK DITEMUKAN!")
+	else:
+		dash_bar.max_value = dash_cooldown
+		dash_bar.value = dash_cooldown
+		print("UI Dash Berhasil Terhubung!")
 
 #Speeds
 var sprint_speed := speed * 1.5
@@ -48,11 +73,14 @@ var camera_basis := Basis.IDENTITY
 # == DASH ==
 var dash_speed := 25.0
 var dash_duration := 0.3
-var dash_cooldown := 0.5
-var dash_ready := true
-var dash_time_left := 0.0
-var dash_cooldown_left := 0.0
 var dash_direction := Vector3.ZERO
+var dash_time_left := 0.0 # <--- Tambahkan baris ini kembali
+
+# Sistem Charge
+var max_dash_charges := 2
+var dash_charges := 2
+var dash_cooldown := 3.0 # Cooldown setelah kedua charge habis
+var dash_cooldown_left := 0.0
 
 func _physics_process(delta: float) -> void:
 	if not is_alive:
@@ -82,6 +110,61 @@ func _unhandled_input(_event: InputEvent) -> void:
 	
 	if Input.is_action_just_pressed("attack"):
 		_attack()
+		
+	# Input baru untuk Weapon Skill (pastikan sudah di-map di Project Settings)
+	if Input.is_action_just_pressed("weapon_skill"):
+		_use_weapon_skill()
+
+# == WEAPON SKILL & SANITY ==
+func _use_weapon_skill() -> void:
+	# Tidak bisa cast jika sedang cooldown attack, sedang hollow, atau nge-dash
+	if not attack_timer.is_stopped() or is_hollow or is_dashing:
+		return
+		
+	if sanity >= weapon_skill_cost:
+		is_attacking = true
+		attack_timer.start()
+		
+		# Kurangi Sanity
+		sanity -= weapon_skill_cost
+		print("Weapon Skill Digunakan! Sanity tersisa: ", sanity)
+		
+		if sanity <= 0:
+			sanity = 0
+			_become_hollow()
+			
+		# Logika Weapon Skill (Burst Damage / AoE besar)
+		var bodies := attack_area.get_overlapping_bodies()
+		for body in bodies:
+			if body and body.has_method("hit") and body.is_in_group("enemy"):
+				body.hit(atk * 3) # Contoh: Memberikan 3x lipat damage biasa
+				
+		as_vfx.play("weapon_skill_effect") # Ganti dengan nama animasi VFX skill-mu
+		
+		await get_tree().create_timer(attack_timer.wait_time).timeout
+		is_attacking = false
+	else:
+		print("Sanity tidak cukup!")
+
+func _become_hollow() -> void:
+	is_hollow = true
+	anim_sprite.set("modulate", Color(0.5, 0.5, 0.5, 0.7)) # Efek visual transparan/abu-abu
+	print("Kewarasan Habis! Pemain menjadi jiwa kosong.")
+	# Hukuman hollow: Misalnya speed turun drastis
+	speed = 3.0 
+	sprint_speed = 3.0
+
+func restore_sanity(amount: int) -> void:
+	sanity += amount
+	if sanity > max_sanity:
+		sanity = max_sanity
+		
+	if is_hollow and sanity > 0:
+		is_hollow = false
+		anim_sprite.set("modulate", Color.WHITE) # Normal kembali
+		speed = 7.0 # Kembalikan speed normal
+		sprint_speed = speed * 1.5
+		print("Kewarasan kembali.")
 
 # == MOVEMENT & PHYSICS ==
 
@@ -111,31 +194,50 @@ func _apply_movement() -> void:
 # == DASHING ==
 
 func _handle_dash(delta: float) -> void:
-	# cooldown
-	if not dash_ready:
+	# 1. Update UI & Cooldown
+	if dash_charges == 0:
 		dash_cooldown_left -= delta
+		
+		# Menggerakkan bar secara real-time
+		if dash_bar:
+			dash_bar.value = dash_cooldown - dash_cooldown_left
+			
 		if dash_cooldown_left <= 0.0:
-			dash_ready = true
+			dash_charges = max_dash_charges
+			if dash_bar:
+				dash_bar.value = dash_cooldown
+			print("Dash charges dipulihkan!")
+	else:
+		if dash_bar:
+			dash_bar.value = dash_cooldown
 
-	# start dash
-	if not is_dashing and dash_ready \
+	# 2. Update Teks Label secara real-time
+	if dash_label:
+		dash_label.text = str(dash_charges) + "/2"
+
+	# 3. Start Dash Action
+	if not is_dashing and dash_charges > 0 \
 	and Input.is_action_just_pressed("dash") and input_dir.length() > 0.1:
+		
 		is_dashing = true
 		dash_time_left = dash_duration
-		dash_ready = false
-		dash_cooldown_left = dash_cooldown
-		dash_direction = Basis(Vector3.UP, rotation.y) \
-			* Vector3(input_dir.x, 0, input_dir.y)
+		dash_charges -= 1
+		
+		if dash_charges == 0:
+			dash_cooldown_left = dash_cooldown
+			if dash_bar:
+				dash_bar.value = 0.0 # Kosongkan bar seketika
+				
+		dash_direction = Basis(Vector3.UP, rotation.y) * Vector3(input_dir.x, 0, input_dir.y)
 		dash_direction = dash_direction.normalized()
+		AudioManager.play_sfx("dash")
 
-	# handle dash motion
+	# 4. Handle Dash Motion
 	if is_dashing:
 		dash_time_left -= delta
-		move_dir = (Basis(Vector3.UP, rotation.y) \
-			* Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		move_dir = (Basis(Vector3.UP, rotation.y) * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
-		if (dash_duration - dash_time_left) >= dash_duration / 3.0 \
-		and move_dir.length() > 0.1:
+		if (dash_duration - dash_time_left) >= dash_duration / 3.0 and move_dir.length() > 0.1:
 			if Input.is_action_pressed("sprint"):
 				speed = sprint_speed
 			var combined = (dash_direction * dash_speed + move_dir * speed).normalized()
