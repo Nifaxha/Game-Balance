@@ -24,19 +24,50 @@ export_credentials.cfg
 *.translation
 
 # -----------------------------
-# Mono/C# specific ignores (Jika pakai .NET)
+# Mono/C# / .NET specific ignores
 # -----------------------------
 .mono/
 data_*/
 mono_crash.*.json
+bin/
+obj/
 
 # -----------------------------
-# OS & Lingkungan IDE 
+# Export & Build Artifacts (PENTING!)
+# -----------------------------
+export/
+exports/
+build/
+builds/
+out/
+*.pck
+*.apk
+*.exe
+*.aab
+
+# -----------------------------
+# Mobile Custom Builds
+# -----------------------------
+android/build/
+ios/build/
+
+# -----------------------------
+# Logs & Crash Dumps
+# -----------------------------
+logs/
+*.log
+crash_*
+core.*
+
+# -----------------------------
+# OS, IDE & External Tools
 # -----------------------------
 .directory
 .DS_Store
 Thumbs.db
 *~
 *.blend1
+*.kra~
+*.psd~
 .idea/
 .vscode/
